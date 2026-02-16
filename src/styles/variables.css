@@ -1,0 +1,113 @@
+:root {
+  /* Primitive colors */
+  --color-red: #c73b0f;
+  --color-green: #1ea575;
+  --color-rose-900: #260f08;
+  --color-rose-500: #87635a;
+  --color-rose-400: #ad8a85;
+  --color-rose-300: #caafa7;
+  --color-rose-100: #f5eeec;
+  --color-rose-50: #fcf8f6;
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* Semantic colors */
+  --semantic-color-text-primary: var(--color-rose-900);
+  --semantic-color-text-secondary: var(--color-rose-500);
+  --semantic-color-text-inverse: var(--color-white);
+  --semantic-color-text-accent: var(--color-red);
+
+  --semantic-color-surface-page: var(--color-rose-50);
+  --semantic-color-surface-raised: var(--color-white);
+  --semantic-color-surface-subtle: var(--color-rose-100);
+  --semantic-color-surface-strong: var(--color-rose-900);
+
+  --semantic-color-border-default: var(--color-rose-400);
+  --semantic-color-border-subtle: var(--color-rose-100);
+  --semantic-color-border-accent: var(--color-red);
+
+  --semantic-color-feedback-success: var(--color-green);
+
+  /* Typography */
+  --font-family-primary: "Red Hat Text", "Segoe UI", sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+
+  --text-preset-1-font-family: var(--font-family-primary);
+  --text-preset-1-font-weight: var(--font-weight-bold);
+  --text-preset-1-font-size: 40px;
+  --text-preset-1-line-height: 1.2;
+  --text-preset-1-letter-spacing: 0px;
+
+  --text-preset-2-font-family: var(--font-family-primary);
+  --text-preset-2-font-weight: var(--font-weight-bold);
+  --text-preset-2-font-size: 24px;
+  --text-preset-2-line-height: 1.25;
+  --text-preset-2-letter-spacing: 0px;
+
+  --text-preset-3-font-family: var(--font-family-primary);
+  --text-preset-3-font-weight: var(--font-weight-semi-bold);
+  --text-preset-3-font-size: 16px;
+  --text-preset-3-line-height: 1.5;
+  --text-preset-3-letter-spacing: 0px;
+
+  --text-preset-4-font-family: var(--font-family-primary);
+  --text-preset-4-font-weight: var(--font-weight-regular);
+  --text-preset-4-font-size: 14px;
+  --text-preset-4-line-height: 1.5;
+  --text-preset-4-letter-spacing: 0px;
+
+  --text-preset-4-bold-font-family: var(--font-family-primary);
+  --text-preset-4-bold-font-weight: var(--font-weight-semi-bold);
+  --text-preset-4-bold-font-size: 14px;
+  --text-preset-4-bold-line-height: 1.5;
+  --text-preset-4-bold-letter-spacing: 0px;
+
+  /* Spacing */
+  --spacing-50: 4px;
+  --spacing-100: 8px;
+  --spacing-150: 12px;
+  --spacing-200: 16px;
+  --spacing-300: 24px;
+  --spacing-400: 32px;
+  --spacing-500: 40px;
+  --spacing-1100: 88px;
+
+  /* Radius */
+  --radius-card: 10px;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-width-default: 1px;
+  --border-width-focus: 2px;
+  --border-focus-offset: 2px;
+
+  /* Sizes */
+  --size-control-button-height: 44px;
+  --size-control-button-width: 160px;
+  --size-control-icon: 20px;
+  --size-layout-content-max-width: 1120px;
+
+  /* Motion */
+  --motion-duration-fast: 200ms;
+  --motion-easing-standard: ease;
+
+  /* Component tokens */
+  --component-add-to-cart-button-default-background: var(--color-white);
+  --component-add-to-cart-button-default-text: var(--color-rose-900);
+  --component-add-to-cart-button-default-border: var(--color-rose-400);
+  --component-add-to-cart-button-hover-text: var(--color-red);
+  --component-add-to-cart-button-hover-border: var(--color-red);
+  --component-add-to-cart-button-active-background: var(--color-red);
+  --component-add-to-cart-button-active-text: var(--color-white);
+  --component-add-to-cart-button-focus-visible-outline-color: var(--color-rose-900);
+  --component-add-to-cart-button-focus-visible-outline-width: 2px;
+  --component-add-to-cart-button-focus-visible-outline-offset: 2px;
+
+  /* Breakpoints */
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1110px;
+  --breakpoint-wide: 1440px;
+}

@@ -1,0 +1,83 @@
+@import "../styles/variables.css";
+
+.iconButton {
+  width: var(--size-control-icon);
+  height: var(--size-control-icon);
+
+  border: var(--border-width-default) solid var(--semantic-color-text-inverse);
+
+  background-color: transparent;
+  border-radius: var(--radius-pill);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+
+  fill: white;
+
+  cursor: pointer;
+}
+
+.icon {
+  width: calc(var(--size-control-icon) / 2);
+  height: calc(var(--size-control-icon) / 2);
+  display: block;
+  background-color: inherit;
+  flex-shrink: 0;
+}
+
+.icon path {
+  fill: inherit;
+}
+
+.iconButton:hover {
+  background-color: white;
+  fill: inherit;
+}
+
+.remove {
+  border: var(--border-width-default) solid var(--semantic-color-border-default);
+  fill: var(--semantic-color-border-default);
+}
+
+.remove:hover {
+  background-color: transparent;
+  border: var(--border-width-default) solid var(--semantic-color-surface-strong);
+  fill: var(--semantic-color-surface-strong);
+}
+
+.button {
+  min-height: var(--size-control-button-height);
+  border-radius: var(--radius-pill);
+  border: var(--border-width-default) solid transparent;
+  padding: 0 var(--spacing-300);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--text-preset-4-bold-font-family);
+  font-weight: var(--text-preset-4-bold-font-weight);
+  font-size: var(--text-preset-4-bold-font-size);
+  line-height: var(--text-preset-4-bold-line-height);
+  letter-spacing: var(--text-preset-4-bold-letter-spacing);
+  cursor: pointer;
+  transition: background-color var(--motion-duration-fast) var(--motion-easing-standard),
+    border-color var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.primary {
+  background-color: var(--color-red);
+  color: var(--color-white);
+  border: none;
+  padding: var(--spacing-200) var(--spacing-300);
+  font-family: var(--text-preset-3-font-family);
+  font-weight: var(--text-preset-3-font-weight);
+  font-size: var(--text-preset-3-font-size);
+  letter-spacing: var(--text-preset-3-letter-spacing);
+  line-height: 1;
+}
+
+.primary:hover {
+  background-image: linear-gradient(90deg, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 25%) 100%),
+    linear-gradient(90deg, var(--color-red) 0%, var(--color-red) 100%);
+}
