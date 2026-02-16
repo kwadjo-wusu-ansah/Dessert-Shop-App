@@ -1,0 +1,50 @@
+@import "../styles/variables.css";
+
+.cartCard {
+  width: min(100%, 384px);
+  background-color: var(--semantic-color-surface-raised);
+  border-radius: var(--spacing-150);
+  padding: var(--spacing-300);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-300);
+}
+
+.title {
+  margin: 0;
+  color: var(--semantic-color-text-accent);
+  font-family: var(--text-preset-2-font-family);
+  font-weight: var(--text-preset-2-font-weight);
+  font-size: var(--text-preset-2-font-size);
+  line-height: 1;
+  letter-spacing: var(--text-preset-2-letter-spacing);
+}
+
+.emptyState {
+  width: 100%;
+  padding-block: var(--spacing-200);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-200);
+}
+
+.emptyIllustration {
+  width: 128px;
+  height: 128px;
+  display: block;
+}
+
+.emptyMessage {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  color: var(--semantic-color-text-secondary);
+  font-family: var(--text-preset-4-bold-font-family);
+  font-weight: var(--text-preset-4-bold-font-weight);
+  font-size: var(--text-preset-4-bold-font-size);
+  line-height: 1;
+  letter-spacing: var(--text-preset-4-bold-letter-spacing);
+}

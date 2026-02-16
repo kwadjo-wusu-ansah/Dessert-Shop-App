@@ -84,14 +84,19 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 │   │   ├── images
 │   │   └── react.svg
 │   ├── components
+│   │   ├── CartCard.module.css
+│   │   ├── CartCard.tsx
 │   │   ├── Button.module.css
 │   │   ├── Button.tsx
 │   │   ├── ButtonTypes.ts
+│   │   ├── DessertMenuCard.module.css
+│   │   ├── DessertMenuCard.tsx
 │   │   ├── Icon.tsx
 │   │   └── RegularButton.tsx
 │   ├── index.css
 │   ├── main.tsx
 │   └── styles
+│       ├── design-system-reference.md
 │       └── variables.css
 ├── tsconfig.app.json
 ├── tsconfig.json
@@ -116,6 +121,9 @@ Update this list whenever a concept is introduced to the project.
 - Add-to-cart regular button with project cart icon and variation-specific fallback text
 - Active add-to-cart quantity control with interactive add/subtract icon buttons
 - Fixed-dimension add-to-cart states to keep default and active sizes consistent
+- Reusable `DessertMenuCard` with responsive image sources and parent-controlled cart actions
+- Single-card `App.tsx` example mode for focused component style/layout verification
+- Reusable `CartCard` empty state with parent-controlled `itemCount` and `isEmpty`
 
 ### Concepts to Learn Next
 - State architecture patterns for larger carts and catalogs

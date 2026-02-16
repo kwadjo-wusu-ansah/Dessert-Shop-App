@@ -10,6 +10,10 @@ interface RegularButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variation: ButtonVariationType;
   text?: string;
   isActive?: boolean;
+  quantity?: number;
+  onAddToCart?: () => void;
+  onIncreaseQuantity?: () => void;
+  onDecreaseQuantity?: () => void;
 }
 
 // Returns the fallback label for a primary button.
@@ -30,20 +34,61 @@ function resolveInitialAddToCartActiveState(
   return variation === "addToCart" && isActive;
 }
 
+// Determines whether add-to-cart state is controlled by parent callbacks.
+function resolveIsControlledAddToCart(
+  variation: ButtonVariationType,
+  onAddToCart: (() => void) | undefined,
+  onIncreaseQuantity: (() => void) | undefined,
+  onDecreaseQuantity: (() => void) | undefined,
+  quantity: number | undefined
+): boolean {
+  if (variation !== "addToCart") {
+    return false;
+  }
+
+  return Boolean(
+    onAddToCart || onIncreaseQuantity || onDecreaseQuantity || quantity !== undefined
+  );
+}
+
+// Returns the active quantity with a minimum value of one.
+function resolveDisplayQuantity(quantity: number | undefined): number {
+  if (!quantity || quantity < 1) {
+    return 1;
+  }
+
+  return quantity;
+}
+
 // Renders a regular button variation using explicit branch rendering.
 export function RegularButton({
   variation,
   text,
   isActive = false,
+  quantity,
+  onAddToCart,
+  onIncreaseQuantity,
+  onDecreaseQuantity,
   className,
   onClick,
   disabled,
   ...rest
 }: RegularButtonProps) {
+  const isControlledAddToCart = resolveIsControlledAddToCart(
+    variation,
+    onAddToCart,
+    onIncreaseQuantity,
+    onDecreaseQuantity,
+    quantity
+  );
   const [isAddToCartActive, setIsAddToCartActive] = useState(
     resolveInitialAddToCartActiveState(variation, isActive)
   );
-  const [quantity, setQuantity] = useState(1);
+  const [internalQuantity, setInternalQuantity] = useState(1);
+  const isAddToCartControlActive = isControlledAddToCart ? isActive : isAddToCartActive;
+  const displayQuantity = isControlledAddToCart
+    ? resolveDisplayQuantity(quantity)
+    : internalQuantity;
 
   if (variation === "primary") {
     return (
@@ -60,7 +105,7 @@ export function RegularButton({
     );
   }
 
-  if (variation === "addToCart" && !isAddToCartActive) {
+  if (variation === "addToCart" && !isAddToCartControlActive) {
     // Activates add-to-cart mode and initializes quantity when clicked.
     const handleAddToCartClick = (event: MouseEvent<HTMLButtonElement>) => {
       onClick?.(event);
@@ -69,8 +114,14 @@ export function RegularButton({
         return;
       }
 
+      onAddToCart?.();
+
+      if (isControlledAddToCart) {
+        return;
+      }
+
       setIsAddToCartActive(true);
-      setQuantity(1);
+      setInternalQuantity(1);
     };
 
     return (
@@ -95,14 +146,20 @@ export function RegularButton({
     );
   }
 
-  if (variation === "addToCart" && isAddToCartActive) {
+  if (variation === "addToCart" && isAddToCartControlActive) {
     // Increases active add-to-cart quantity by one.
     const handleIncreaseQuantity = () => {
       if (disabled) {
         return;
       }
 
-      setQuantity((previousQuantity) => previousQuantity + 1);
+      onIncreaseQuantity?.();
+
+      if (isControlledAddToCart) {
+        return;
+      }
+
+      setInternalQuantity((previousQuantity) => previousQuantity + 1);
     };
 
     // Decreases quantity and resets to default state when quantity reaches one.
@@ -111,13 +168,19 @@ export function RegularButton({
         return;
       }
 
-      if (quantity === 1) {
-        setIsAddToCartActive(false);
-        setQuantity(1);
+      onDecreaseQuantity?.();
+
+      if (isControlledAddToCart) {
         return;
       }
 
-      setQuantity((previousQuantity) => previousQuantity - 1);
+      if (internalQuantity === 1) {
+        setIsAddToCartActive(false);
+        setInternalQuantity(1);
+        return;
+      }
+
+      setInternalQuantity((previousQuantity) => previousQuantity - 1);
     };
 
     return (
@@ -129,7 +192,7 @@ export function RegularButton({
           aria-label="Decrease quantity"
           disabled={disabled}
         />
-        <span className={style.addToCartQuantity}>{quantity}</span>
+        <span className={style.addToCartQuantity}>{displayQuantity}</span>
         <Icon
           variation="add"
           type="button"

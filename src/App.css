@@ -1,0 +1,11 @@
+@import "./styles/variables.css";
+
+.appShell {
+  min-height: 100vh;
+  padding: var(--spacing-300);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

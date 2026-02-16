@@ -1,0 +1,72 @@
+@import "../styles/variables.css";
+
+.card {
+  width: min(100%, 250px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-200);
+}
+
+.mediaAndButton {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 22px;
+}
+
+.picture {
+  width: 100%;
+  display: block;
+}
+
+.image {
+  width: 100%;
+  height: 240px;
+  display: block;
+  object-fit: cover;
+  border-radius: var(--spacing-100);
+}
+
+.addToCartControl {
+  margin-top: -22px;
+  z-index: 1;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-50);
+  line-height: normal;
+}
+
+.category {
+  margin: 0;
+  color: var(--semantic-color-text-secondary);
+  font-family: var(--text-preset-4-font-family);
+  font-weight: var(--text-preset-4-font-weight);
+  font-size: var(--text-preset-4-font-size);
+  line-height: 1;
+  letter-spacing: var(--text-preset-4-letter-spacing);
+}
+
+.name {
+  margin: 0;
+  color: var(--semantic-color-text-primary);
+  font-family: var(--text-preset-3-font-family);
+  font-weight: var(--text-preset-3-font-weight);
+  font-size: var(--text-preset-3-font-size);
+  line-height: 1;
+  letter-spacing: var(--text-preset-3-letter-spacing);
+}
+
+.price {
+  margin: 0;
+  color: var(--semantic-color-text-accent);
+  font-family: var(--text-preset-3-font-family);
+  font-weight: var(--text-preset-3-font-weight);
+  font-size: var(--text-preset-3-font-size);
+  line-height: 1;
+  letter-spacing: var(--text-preset-3-letter-spacing);
+}

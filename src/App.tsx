@@ -1,9 +1,13 @@
 import "./App.css";
+import { CartCard } from "./components/CartCard";
 
-import { RegularButton } from "./components/RegularButton";
-
+// Renders a single empty cart card example for style and layout validation.
 function App() {
-  return <RegularButton variation="addToCart" />;
+  return (
+    <main className="appShell">
+      <CartCard itemCount={0} isEmpty />
+    </main>
+  );
 }
 
 export default App;
