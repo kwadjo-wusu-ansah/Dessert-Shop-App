@@ -111,7 +111,11 @@ Update this list whenever a concept is introduced to the project.
 - Responsive layout implementation
 - Cart interactions (add/remove items and dynamic totals)
 - Variant-driven regular button architecture (`primary` and `addToCart`)
-- Default-prop regular button behavior with placeholder label fallback
+- Required `variation` prop for regular button variants
+- Branch-based variation rendering in `RegularButton` (matching `Icon` pattern)
+- Add-to-cart regular button with project cart icon and variation-specific fallback text
+- Active add-to-cart quantity control with interactive add/subtract icon buttons
+- Fixed-dimension add-to-cart states to keep default and active sizes consistent
 
 ### Concepts to Learn Next
 - State architecture patterns for larger carts and catalogs

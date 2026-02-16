@@ -1,3 +1,14 @@
-* {
-  background-color: black;
+@import "./styles/variables.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  background-color: var(--semantic-color-surface-page);
+  color: var(--semantic-color-text-primary);
 }

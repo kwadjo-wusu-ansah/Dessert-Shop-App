@@ -60,6 +60,7 @@
   line-height: var(--text-preset-4-bold-line-height);
   letter-spacing: var(--text-preset-4-bold-letter-spacing);
   cursor: pointer;
+  box-sizing: border-box;
   transition: background-color var(--motion-duration-fast) var(--motion-easing-standard),
     border-color var(--motion-duration-fast) var(--motion-easing-standard),
     color var(--motion-duration-fast) var(--motion-easing-standard);
@@ -80,4 +81,53 @@
 .primary:hover {
   background-image: linear-gradient(90deg, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 25%) 100%),
     linear-gradient(90deg, var(--color-red) 0%, var(--color-red) 100%);
+}
+
+.addToCart {
+  width: var(--size-control-button-width);
+  max-width: var(--size-control-button-width);
+  height: var(--size-control-button-height);
+  padding: var(--spacing-150);
+  gap: var(--spacing-100);
+  background-color: var(--component-add-to-cart-button-default-background);
+  color: var(--component-add-to-cart-button-default-text);
+  border-color: var(--component-add-to-cart-button-default-border);
+}
+
+.addToCart:hover {
+  color: var(--component-add-to-cart-button-hover-text);
+  border-color: var(--component-add-to-cart-button-hover-border);
+}
+
+.addToCartIcon {
+  width: var(--size-control-icon);
+  height: var(--size-control-icon);
+  display: block;
+  flex-shrink: 0;
+}
+
+.addToCartLabel {
+  line-height: 1;
+}
+
+.addToCartActive {
+  width: var(--size-control-button-width);
+  max-width: var(--size-control-button-width);
+  height: var(--size-control-button-height);
+  padding: var(--spacing-150);
+  background-color: var(--color-red);
+  color: var(--color-white);
+  border: none;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: default;
+}
+
+.addToCartQuantity {
+  color: var(--color-white);
+  font-family: var(--text-preset-4-bold-font-family);
+  font-weight: var(--text-preset-4-bold-font-weight);
+  font-size: var(--text-preset-4-bold-font-size);
+  letter-spacing: var(--text-preset-4-bold-letter-spacing);
+  line-height: 1;
 }

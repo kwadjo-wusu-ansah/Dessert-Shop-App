@@ -1,15 +1,17 @@
+import type { ButtonHTMLAttributes } from "react";
 import { Button } from "./Button";
 import type { IconVariationType } from "./ButtonTypes";
 import style from "./Button.module.css";
 
-interface IconProps {
+interface IconProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variation: IconVariationType;
 }
 
-export function Icon({ variation }: IconProps) {
+// Renders icon button variations for quantity and removal controls.
+export function Icon({ variation, ...rest }: IconProps) {
   if (variation == "subtract") {
     return (
-      <Button variation="icon" variationType="subtract">
+      <Button variation="icon" variationType="subtract" {...rest}>
         <svg
           className={style.icon}
           xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +25,7 @@ export function Icon({ variation }: IconProps) {
 
   if (variation == "add") {
     return (
-      <Button variation="icon" variationType="add">
+      <Button variation="icon" variationType="add" {...rest}>
         <svg
           className={style.icon}
           xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +39,7 @@ export function Icon({ variation }: IconProps) {
 
   if (variation == "remove") {
     return (
-      <Button variation="icon" variationType="remove">
+      <Button variation="icon" variationType="remove" {...rest}>
         <svg
           className={style.icon}
           xmlns="http://www.w3.org/2000/svg"
