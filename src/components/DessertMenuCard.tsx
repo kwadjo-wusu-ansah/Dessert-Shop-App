@@ -24,6 +24,15 @@ function formatPrice(price: number): string {
   return `$${price.toFixed(2)}`;
 }
 
+// Resolves the image class list based on the card cart state.
+function resolveImageClassName(isInCart: boolean): string {
+  if (isInCart) {
+    return `${style.image} ${style.imageInCart}`;
+  }
+
+  return style.image;
+}
+
 // Renders a reusable dessert menu card with parent-controlled cart state.
 export function DessertMenuCard({
   category,
@@ -42,7 +51,11 @@ export function DessertMenuCard({
         <picture className={style.picture}>
           <source media="(min-width: 1110px)" srcSet={imageSources.desktop} />
           <source media="(min-width: 768px)" srcSet={imageSources.tablet} />
-          <img className={style.image} src={imageSources.mobile} alt={name} />
+          <img
+            className={resolveImageClassName(isInCart)}
+            src={imageSources.mobile}
+            alt={name}
+          />
         </picture>
         <RegularButton
           variation="addToCart"

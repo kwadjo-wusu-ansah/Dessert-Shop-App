@@ -1,55 +1,77 @@
 @import "../styles/variables.css";
 
-.cartCard {
-  width: 100%;
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: var(--spacing-300);
+  background-color: rgb(0 0 0 / 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  width: min(100%, 592px);
   background-color: var(--semantic-color-surface-raised);
   border-radius: var(--spacing-150);
-  padding: var(--spacing-300);
+  padding: var(--spacing-500);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: var(--spacing-400);
+}
+
+.titleInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
   gap: var(--spacing-300);
+}
+
+.confirmationIcon {
+  width: 48px;
+  height: 48px;
+  display: block;
+}
+
+.titleTextGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-100);
 }
 
 .title {
   margin: 0;
-  color: var(--semantic-color-text-accent);
-  font-family: var(--text-preset-2-font-family);
-  font-weight: var(--text-preset-2-font-weight);
-  font-size: var(--text-preset-2-font-size);
-  line-height: 1;
-  letter-spacing: var(--text-preset-2-letter-spacing);
+  color: var(--semantic-color-text-primary);
+  font-family: var(--text-preset-1-font-family);
+  font-weight: var(--text-preset-1-font-weight);
+  font-size: var(--text-preset-1-font-size);
+  line-height: var(--text-preset-1-line-height);
+  letter-spacing: var(--text-preset-1-letter-spacing);
 }
 
-.emptyState {
+.subtitle {
+  margin: 0;
+  color: var(--semantic-color-text-secondary);
+  font-family: var(--text-preset-3-font-family);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--spacing-200);
+  line-height: 1;
+  letter-spacing: var(--text-preset-3-letter-spacing);
+}
+
+.confirmedItemsPanel {
   width: 100%;
-  padding-block: var(--spacing-200);
+  background-color: var(--semantic-color-surface-page);
+  border-radius: var(--spacing-100);
+  padding: var(--spacing-300);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-200);
+  gap: var(--spacing-300);
 }
 
-.emptyIllustration {
-  width: 128px;
-  height: 128px;
-  display: block;
-}
-
-.emptyMessage {
-  margin: 0;
-  width: 100%;
-  text-align: center;
-  color: var(--semantic-color-text-secondary);
-  font-family: var(--text-preset-4-bold-font-family);
-  font-weight: var(--text-preset-4-bold-font-weight);
-  font-size: var(--text-preset-4-bold-font-size);
-  line-height: 1;
-  letter-spacing: var(--text-preset-4-bold-letter-spacing);
-}
-
-.addedItems {
+.itemList {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -61,11 +83,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing-100);
 }
 
 .itemInfo {
-  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-200);
+}
+
+.itemImage {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--spacing-50);
+  object-fit: cover;
+  display: block;
+}
+
+.itemTextGroup {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-100);
@@ -81,9 +115,9 @@
   letter-spacing: var(--text-preset-4-bold-letter-spacing);
 }
 
-.quantityAndPrice {
+.amountRow {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--spacing-100);
 }
 
@@ -110,16 +144,12 @@
 
 .itemTotal {
   margin: 0;
-  color: var(--semantic-color-text-secondary);
-  font-family: var(--text-preset-4-bold-font-family);
-  font-weight: var(--text-preset-4-bold-font-weight);
-  font-size: var(--text-preset-4-bold-font-size);
+  color: var(--semantic-color-text-primary);
+  font-family: var(--text-preset-3-font-family);
+  font-weight: var(--text-preset-3-font-weight);
+  font-size: var(--text-preset-3-font-size);
   line-height: 1;
-  letter-spacing: var(--text-preset-4-bold-letter-spacing);
-}
-
-.removeButton {
-  flex-shrink: 0;
+  letter-spacing: var(--text-preset-3-letter-spacing);
 }
 
 .separator {
@@ -155,54 +185,6 @@
   letter-spacing: var(--text-preset-2-letter-spacing);
 }
 
-.carbonInfo {
+.startNewOrderButton {
   width: 100%;
-  background-color: var(--semantic-color-surface-page);
-  border-radius: var(--spacing-100);
-  padding: var(--spacing-200);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.carbonInfoContent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-100);
-}
-
-.carbonIcon {
-  width: var(--size-control-icon);
-  height: var(--size-control-icon);
-  display: block;
-}
-
-.carbonText {
-  margin: 0;
-  color: var(--semantic-color-text-primary);
-  font-family: var(--text-preset-4-font-family);
-  font-weight: var(--text-preset-4-font-weight);
-  font-size: var(--text-preset-4-font-size);
-  line-height: 1;
-  letter-spacing: var(--text-preset-4-letter-spacing);
-}
-
-.carbonTextStrong {
-  font-family: var(--text-preset-4-bold-font-family);
-  font-weight: var(--text-preset-4-bold-font-weight);
-  font-size: var(--text-preset-4-bold-font-size);
-  line-height: 1;
-  letter-spacing: var(--text-preset-4-bold-letter-spacing);
-}
-
-.confirmOrderButton {
-  width: 100%;
-}
-
-@media (min-width: 1110px) {
-  .cartCard {
-    max-width: 384px;
-  }
 }

@@ -1,7 +1,7 @@
 @import "../styles/variables.css";
 
 .card {
-  width: min(100%, 250px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-200);
@@ -22,10 +22,16 @@
 
 .image {
   width: 100%;
-  height: 240px;
+  height: 212px;
   display: block;
   object-fit: cover;
+  border: var(--border-width-focus) solid transparent;
   border-radius: var(--spacing-100);
+  box-sizing: border-box;
+}
+
+.imageInCart {
+  border-color: var(--semantic-color-border-accent);
 }
 
 .addToCartControl {
@@ -69,4 +75,10 @@
   font-size: var(--text-preset-3-font-size);
   line-height: 1;
   letter-spacing: var(--text-preset-3-letter-spacing);
+}
+
+@media (min-width: 1110px) {
+  .image {
+    height: 240px;
+  }
 }

@@ -89,10 +89,14 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 │   │   ├── Button.module.css
 │   │   ├── Button.tsx
 │   │   ├── ButtonTypes.ts
+│   │   ├── ConfirmedOrderModal.module.css
+│   │   ├── ConfirmedOrderModal.tsx
 │   │   ├── DessertMenuCard.module.css
 │   │   ├── DessertMenuCard.tsx
 │   │   ├── Icon.tsx
 │   │   └── RegularButton.tsx
+│   ├── data
+│   │   └── dessertCatalog.ts
 │   ├── index.css
 │   ├── main.tsx
 │   └── styles
@@ -122,8 +126,16 @@ Update this list whenever a concept is introduced to the project.
 - Active add-to-cart quantity control with interactive add/subtract icon buttons
 - Fixed-dimension add-to-cart states to keep default and active sizes consistent
 - Reusable `DessertMenuCard` with responsive image sources and parent-controlled cart actions
-- Single-card `App.tsx` example mode for focused component style/layout verification
-- Reusable `CartCard` empty state with parent-controlled `itemCount` and `isEmpty`
+- Reusable `CartCard` with parent-controlled `items`, remove-item callback, and optional confirm-order callback
+- Reusable `ConfirmedOrderModal` static UI with backdrop and Escape close interactions
+- Static dessert catalog data provider via `getDessertCatalogItems`
+- Responsive populated main-page composition using `DessertMenuCard` grid and `CartCard` populated/empty states
+- Main-page layout calibrated to Figma responsive nodes using a `1216px` content max width with `800px` product list and `384px` cart column structure
+- Stateful cart-entry model in `App.tsx` with add/increase/decrease/remove flows that keep product cards and cart panel synchronized
+- Populated `CartCard` state with removable line items, dynamic quantity count, computed order total, and carbon-neutral info row
+- Populated responsive main-page parity for Figma nodes `10:334`, `36:313`, and `48:501`
+- Cart populated-state spacing parity with Figma `10:433` by rendering item rows and separators as flat siblings in the cart stack
+- App bootstraps with an empty cart state (no selected desserts, zero cart count) and transitions to populated state through interactions
 
 ### Concepts to Learn Next
 - State architecture patterns for larger carts and catalogs
