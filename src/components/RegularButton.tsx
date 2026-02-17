@@ -1,9 +1,16 @@
 import { useState } from "react";
 import type { ButtonHTMLAttributes, MouseEvent } from "react";
+import { resolveInitialAddToCartActiveState } from "../state";
+import {
+  resolveAddToCartButtonText,
+  resolveDisplayQuantity,
+  resolveIsControlledAddToCart,
+  resolvePrimaryButtonText,
+} from "../utils";
+import addToCartIcon from "../assets/images/icon-add-to-cart.svg";
 import { Button } from "./Button";
 import type { ButtonVariationType } from "./ButtonTypes";
 import { Icon } from "./Icon";
-import addToCartIcon from "../assets/images/icon-add-to-cart.svg";
 import style from "./Button.module.css";
 
 interface RegularButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,50 +21,6 @@ interface RegularButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onAddToCart?: () => void;
   onIncreaseQuantity?: () => void;
   onDecreaseQuantity?: () => void;
-}
-
-// Returns the fallback label for a primary button.
-function resolvePrimaryButtonText(text: string | undefined): string {
-  return text ?? "Placeholder";
-}
-
-// Returns the fallback label for an add-to-cart button.
-function resolveAddToCartButtonText(text: string | undefined): string {
-  return text ?? "Add to Cart";
-}
-
-// Returns the initial active state for add-to-cart controls.
-function resolveInitialAddToCartActiveState(
-  variation: ButtonVariationType,
-  isActive: boolean
-): boolean {
-  return variation === "addToCart" && isActive;
-}
-
-// Determines whether add-to-cart state is controlled by parent callbacks.
-function resolveIsControlledAddToCart(
-  variation: ButtonVariationType,
-  onAddToCart: (() => void) | undefined,
-  onIncreaseQuantity: (() => void) | undefined,
-  onDecreaseQuantity: (() => void) | undefined,
-  quantity: number | undefined
-): boolean {
-  if (variation !== "addToCart") {
-    return false;
-  }
-
-  return Boolean(
-    onAddToCart || onIncreaseQuantity || onDecreaseQuantity || quantity !== undefined
-  );
-}
-
-// Returns the active quantity with a minimum value of one.
-function resolveDisplayQuantity(quantity: number | undefined): number {
-  if (!quantity || quantity < 1) {
-    return 1;
-  }
-
-  return quantity;
 }
 
 // Renders a regular button variation using explicit branch rendering.

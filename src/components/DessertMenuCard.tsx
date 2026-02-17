@@ -1,3 +1,4 @@
+import { resolveCurrencyValue, resolveImageClassName } from "../utils";
 import style from "./DessertMenuCard.module.css";
 import { RegularButton } from "./RegularButton";
 
@@ -19,20 +20,6 @@ interface DessertMenuCardProps {
   onDecreaseQuantity: () => void;
 }
 
-// Formats dessert prices to match the product card currency style.
-function formatPrice(price: number): string {
-  return `$${price.toFixed(2)}`;
-}
-
-// Resolves the image class list based on the card cart state.
-function resolveImageClassName(isInCart: boolean): string {
-  if (isInCart) {
-    return `${style.image} ${style.imageInCart}`;
-  }
-
-  return style.image;
-}
-
 // Renders a reusable dessert menu card with parent-controlled cart state.
 export function DessertMenuCard({
   category,
@@ -52,7 +39,7 @@ export function DessertMenuCard({
           <source media="(min-width: 1110px)" srcSet={imageSources.desktop} />
           <source media="(min-width: 768px)" srcSet={imageSources.tablet} />
           <img
-            className={resolveImageClassName(isInCart)}
+            className={resolveImageClassName(style.image, style.imageInCart, isInCart)}
             src={imageSources.mobile}
             alt={name}
           />
@@ -70,7 +57,7 @@ export function DessertMenuCard({
       <div className={style.info}>
         <p className={style.category}>{category}</p>
         <h3 className={style.name}>{name}</h3>
-        <p className={style.price}>{formatPrice(price)}</p>
+        <p className={style.price}>{resolveCurrencyValue(price)}</p>
       </div>
     </article>
   );

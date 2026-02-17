@@ -1,30 +1,11 @@
+import {
+  resolveButtonVariationClassName,
+  resolveButtonVariationTypeClassName,
+} from "../mappers";
 import style from "./Button.module.css";
-import type { ButtonProps, ButtonVariationType, IconVariationType } from "./ButtonTypes";
+import type { ButtonProps } from "./ButtonTypes";
 
-
-function variationToStyle(variation: "icon" | "button"): string {
-  return variation === "icon" ? style.iconButton : style.button;
-}
-
-function variationTypeToStyle(
-  variationType: IconVariationType | ButtonVariationType
-): string {
-  switch (variationType) {
-    case "subtract":
-      return style.subtract;
-    case "remove":
-      return style.remove;
-    case "add":
-      return style.add;
-    case "addToCart":
-      return style.addToCart;
-    case "primary":
-      return style.primary;
-    default:
-      return "";
-  }
-}
-
+// Renders a base button with class mapping for variation and variation type.
 export function Button({
   children,
   variation,
@@ -33,8 +14,8 @@ export function Button({
   ...rest
 }: ButtonProps) {
   const classes = [
-    variationToStyle(variation),
-    variationTypeToStyle(variationType),
+    resolveButtonVariationClassName(style, variation),
+    resolveButtonVariationTypeClassName(style, variationType),
     className ?? "",
   ].join(" ");
 

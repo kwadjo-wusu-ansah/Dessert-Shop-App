@@ -67,8 +67,8 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 ```
 .
 ├── .gitignore
-├── AGENTS.md
 ├── README.md
+├── agents.md
 ├── data.json
 ├── eslint.config.js
 ├── index.html
@@ -99,9 +99,25 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 │   │   └── dessertCatalog.ts
 │   ├── index.css
 │   ├── main.tsx
-│   └── styles
-│       ├── design-system-reference.md
-│       └── variables.css
+│   ├── mappers
+│   │   ├── buttonStyleMappers.ts
+│   │   ├── cartMappers.ts
+│   │   ├── confirmedOrderMappers.ts
+│   │   └── index.ts
+│   ├── state
+│   │   ├── cartState.ts
+│   │   ├── index.ts
+│   │   ├── orderConfirmationState.ts
+│   │   └── regularButtonState.ts
+│   ├── styles
+│   │   ├── design-system-reference.md
+│   │   └── variables.css
+│   └── utils
+│       ├── buttonUtils.ts
+│       ├── cartTextUtils.ts
+│       ├── currencyUtils.ts
+│       ├── dessertMenuCardUtils.ts
+│       └── index.ts
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
@@ -127,7 +143,7 @@ Update this list whenever a concept is introduced to the project.
 - Fixed-dimension add-to-cart states to keep default and active sizes consistent
 - Reusable `DessertMenuCard` with responsive image sources and parent-controlled cart actions
 - Reusable `CartCard` with parent-controlled `items`, remove-item callback, and optional confirm-order callback
-- Reusable `ConfirmedOrderModal` static UI with backdrop and Escape close interactions
+- Reusable `ConfirmedOrderModal` with backdrop/Escape close interactions and dynamic confirmed-order item rendering
 - Static dessert catalog data provider via `getDessertCatalogItems`
 - Responsive populated main-page composition using `DessertMenuCard` grid and `CartCard` populated/empty states
 - Main-page layout calibrated to Figma responsive nodes using a `1216px` content max width with `800px` product list and `384px` cart column structure
@@ -136,6 +152,8 @@ Update this list whenever a concept is introduced to the project.
 - Populated responsive main-page parity for Figma nodes `10:334`, `36:313`, and `48:501`
 - Cart populated-state spacing parity with Figma `10:433` by rendering item rows and separators as flat siblings in the cart stack
 - App bootstraps with an empty cart state (no selected desserts, zero cart count) and transitions to populated state through interactions
+- Order confirmation modal flow with cart snapshot data, item thumbnails, responsive desktop/tablet/mobile modal layouts, and start-new-order cart reset behavior
+- Functional architecture split into `state`, `mappers`, and `utils` folders with barrel exports for shared logic reuse
 
 ### Concepts to Learn Next
 - State architecture patterns for larger carts and catalogs

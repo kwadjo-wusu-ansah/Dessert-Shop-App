@@ -1,6 +1,8 @@
 import { Fragment } from "react";
-import emptyCartIllustration from "../assets/images/illustration-empty-cart.svg";
+import { resolveCartItemCount, resolveCartOrderTotal } from "../mappers";
+import { resolveCartHeading, resolveCurrencyValue } from "../utils";
 import carbonNeutralIcon from "../assets/images/icon-carbon-neutral.svg";
+import emptyCartIllustration from "../assets/images/illustration-empty-cart.svg";
 import style from "./CartCard.module.css";
 import { Icon } from "./Icon";
 import { RegularButton } from "./RegularButton";
@@ -16,26 +18,6 @@ export interface CartCardItem {
   quantity: number;
   unitPrice: number;
   totalPrice: number;
-}
-
-// Formats currency values with two decimal places.
-function formatCurrencyValue(value: number): string {
-  return `$${value.toFixed(2)}`;
-}
-
-// Computes the total quantity across all cart items.
-function resolveCartItemCount(items: CartCardItem[]): number {
-  return items.reduce((runningTotal, item) => runningTotal + item.quantity, 0);
-}
-
-// Computes the order total across all cart items.
-function resolveOrderTotal(items: CartCardItem[]): number {
-  return items.reduce((runningTotal, item) => runningTotal + item.totalPrice, 0);
-}
-
-// Returns the cart heading text with the current item count.
-function resolveCartHeading(itemCount: number): string {
-  return `Your Cart (${itemCount})`;
 }
 
 // Renders the empty cart placeholder section.
@@ -64,8 +46,8 @@ function renderAddedItemRow(
         <p className={style.itemName}>{item.name}</p>
         <div className={style.quantityAndPrice}>
           <p className={style.itemQuantity}>{item.quantity}x</p>
-          <p className={style.itemUnitPrice}>@ {formatCurrencyValue(item.unitPrice)}</p>
-          <p className={style.itemTotal}>{formatCurrencyValue(item.totalPrice)}</p>
+          <p className={style.itemUnitPrice}>@ {resolveCurrencyValue(item.unitPrice)}</p>
+          <p className={style.itemTotal}>{resolveCurrencyValue(item.totalPrice)}</p>
         </div>
       </div>
       <Icon
@@ -85,7 +67,7 @@ function renderPopulatedState(
   onRemoveItem: (itemName: string) => void,
   onConfirmOrder: (() => void) | undefined
 ) {
-  const orderTotal = resolveOrderTotal(items);
+  const orderTotal = resolveCartOrderTotal(items);
 
   return (
     <>
@@ -93,7 +75,7 @@ function renderPopulatedState(
         {items.map((item, index) => (
           <Fragment key={item.name}>
             {renderAddedItemRow(item, onRemoveItem)}
-            {index < items.length - 1 ? <div className={style.separator} /> : null}
+            {index < items.length - 1 && <div className={style.separator} /> }
           </Fragment>
         ))}
       </div>
@@ -102,7 +84,7 @@ function renderPopulatedState(
 
       <div className={style.orderTotalRow}>
         <p className={style.orderTotalLabel}>Order Total</p>
-        <p className={style.orderTotalValue}>{formatCurrencyValue(orderTotal)}</p>
+        <p className={style.orderTotalValue}>{resolveCurrencyValue(orderTotal)}</p>
       </div>
 
       <div className={style.carbonInfo}>
