@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import type { MouseEvent } from "react";
 import {
   resolveConfirmedOrderTotal,
@@ -63,18 +63,32 @@ export function ConfirmedOrderModal({
 }: ConfirmedOrderModalProps) {
   useEscapeClose(isOpen, onClose);
 
+  // Handles overlay clicks while preserving close behavior by target match.
+  const handleOverlayClose = useCallback(
+    (event: MouseEvent<HTMLDivElement>): void => {
+      handleOverlayClick(event, onClose);
+    },
+    [onClose]
+  );
+
+  // Memoizes visible items so mapping only recalculates when modal data changes.
+  const confirmedOrderItems = useMemo(
+    () => (isOpen ? resolveVisibleConfirmedOrderItems(items) : []),
+    [isOpen, items]
+  );
+
+  // Memoizes confirmed-order totals from the current visible item list.
+  const orderTotal = useMemo(
+    () => resolveConfirmedOrderTotal(confirmedOrderItems),
+    [confirmedOrderItems]
+  );
+
   if (!isOpen) {
     return null;
   }
 
-  const confirmedOrderItems = resolveVisibleConfirmedOrderItems(items);
-  const orderTotal = resolveConfirmedOrderTotal(confirmedOrderItems);
-
   return (
-    <div
-      className={style.overlay}
-      onClick={(event) => handleOverlayClick(event, onClose)}
-    >
+    <div className={style.overlay} onClick={handleOverlayClose}>
       <section
         className={style.modal}
         role="dialog"

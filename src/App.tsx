@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import "./App.css";
 import { CartCard } from "./components/CartCard";
 import {
@@ -28,7 +28,7 @@ function App() {
     );
 
   // Opens the confirmation modal with a snapshot of current cart selections.
-  function handleConfirmOrderClick(): void {
+  const handleConfirmOrderClick = useCallback((): void => {
     const nextConfirmedOrderItems = resolveConfirmedOrderItems(
       dessertCatalogItems,
       cartEntries
@@ -40,22 +40,22 @@ function App() {
 
     setConfirmedOrderItems(nextConfirmedOrderItems);
     setIsConfirmedOrderModalOpen(true);
-  }
+  }, [cartEntries]);
 
   // Closes the confirmation modal and keeps current cart selections unchanged.
-  function handleCloseConfirmedOrderModal(): void {
+  const handleCloseConfirmedOrderModal = useCallback((): void => {
     setIsConfirmedOrderModalOpen(false);
-  }
+  }, []);
 
   // Resets the app to a fresh order after order confirmation.
-  function handleStartNewOrder(): void {
+  const handleStartNewOrder = useCallback((): void => {
     clearCart();
     setConfirmedOrderItems(resolveInitialOrderCollection<ConfirmedOrderModalItem>());
     setIsConfirmedOrderModalOpen(false);
-  }
+  }, [clearCart]);
 
   // Renders one dessert card using globally managed cart behavior.
-  function renderDessertCard(dessertItem: DessertCatalogItem) {
+  const renderDessertCard = useCallback((dessertItem: DessertCatalogItem) => {
     return (
       <DessertMenuCard
         key={dessertItem.name}
@@ -65,7 +65,12 @@ function App() {
         imageSources={dessertItem.imageSources}
       />
     );
-  }
+  }, []);
+
+  const dessertCatalogContent = useMemo(
+    () => dessertCatalogItems.map(renderDessertCard),
+    [renderDessertCard]
+  );
 
   return (
     <>
@@ -73,7 +78,7 @@ function App() {
         <div className="mainLayout">
           <section className="dessertCatalogSection">
             <h1 className="pageTitle">Desserts</h1>
-            <div className="dessertGrid">{dessertCatalogItems.map(renderDessertCard)}</div>
+            <div className="dessertGrid">{dessertCatalogContent}</div>
           </section>
           <section className="cartSection">
             <CartCard onConfirmOrder={handleConfirmOrderClick} />

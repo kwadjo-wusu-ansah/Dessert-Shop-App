@@ -160,6 +160,7 @@ Update this list whenever a concept is introduced to the project.
 - Global cart state model with `CartProvider` and `useCart` hook so catalog cards and cart panel stay synchronized without prop drilling
 - Reducer-driven cart actions in context (`ADD_ITEM`, `DECREASE_ITEM`, `REMOVE_ITEM`, `CLEAR_CART`) for centralized, predictable cart updates
 - Cart persistence using `useEffect` localStorage syncing with safe hydration fallback to an empty cart
+- Memoized cart and confirmation derived values with stable callback handlers using `useMemo` and `useCallback`
 - Populated `CartCard` state with removable line items, dynamic quantity count, computed order total, and carbon-neutral info row
 - Populated responsive main-page parity for Figma nodes `10:334`, `36:313`, and `48:501`
 - Cart populated-state spacing parity with Figma `10:433` by rendering item rows and separators as flat siblings in the cart stack

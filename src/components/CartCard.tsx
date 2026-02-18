@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { resolveCartItemCount, resolveCartItems, resolveCartOrderTotal } from "../mappers";
 import { getDessertCatalogItems } from "../data/dessertCatalog";
 import { useCart } from "../hooks";
@@ -66,11 +66,10 @@ function renderAddedItemRow(
 // Renders the populated cart section with added items and totals.
 function renderPopulatedState(
   items: CartCardItem[],
+  orderTotal: number,
   onRemoveItem: (itemName: string) => void,
   onConfirmOrder: (() => void) | undefined
 ) {
-  const orderTotal = resolveCartOrderTotal(items);
-
   return (
     <>
       <div className={style.addedItems}>
@@ -111,14 +110,20 @@ function renderPopulatedState(
 // Renders the cart card with empty and populated states driven by global cart data.
 export function CartCard({ onConfirmOrder }: CartCardProps) {
   const { cartEntries, removeItem } = useCart();
-  const items = resolveCartItems(dessertCatalogItems, cartEntries);
-  const itemCount = resolveCartItemCount(items);
+  const items = useMemo(
+    () => resolveCartItems(dessertCatalogItems, cartEntries),
+    [cartEntries]
+  );
+  const itemCount = useMemo(() => resolveCartItemCount(items), [items]);
+  const orderTotal = useMemo(() => resolveCartOrderTotal(items), [items]);
   const isEmpty = itemCount === 0;
 
   return (
     <aside className={style.cartCard}>
       <h2 className={style.title}>{resolveCartHeading(itemCount)}</h2>
-      {isEmpty ? renderEmptyState() : renderPopulatedState(items, removeItem, onConfirmOrder)}
+      {isEmpty
+        ? renderEmptyState()
+        : renderPopulatedState(items, orderTotal, removeItem, onConfirmOrder)}
     </aside>
   );
 }
