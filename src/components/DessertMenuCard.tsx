@@ -1,6 +1,4 @@
-import { useCallback, useMemo } from "react";
-import { useCart } from "../hooks";
-import { resolveDessertQuantity } from "../state";
+import { useDessertCartItem } from "../hooks";
 import { resolveCurrencyValue, resolveImageClassName } from "../utils";
 import style from "./DessertMenuCard.module.css";
 import { RegularButton } from "./RegularButton";
@@ -25,22 +23,13 @@ export function DessertMenuCard({
   price,
   imageSources,
 }: DessertMenuCardProps) {
-  const { cartEntries, addItem, decreaseItem } = useCart();
-  const quantity = useMemo(
-    () => resolveDessertQuantity(cartEntries, name),
-    [cartEntries, name]
-  );
-  const isInCart = quantity > 0;
-
-  // Adds one dessert unit from add-to-cart and increment controls.
-  const handleAddToCart = useCallback((): void => {
-    addItem(name);
-  }, [addItem, name]);
-
-  // Decreases one dessert unit from the active quantity control.
-  const handleDecreaseQuantity = useCallback((): void => {
-    decreaseItem(name);
-  }, [decreaseItem, name]);
+  const {
+    quantity,
+    isInCart,
+    handleAddToCart,
+    handleIncreaseQuantity,
+    handleDecreaseQuantity,
+  } = useDessertCartItem(name);
 
   return (
     <article className={style.card}>
@@ -60,7 +49,7 @@ export function DessertMenuCard({
           isActive={isInCart}
           quantity={quantity}
           onAddToCart={handleAddToCart}
-          onIncreaseQuantity={handleAddToCart}
+          onIncreaseQuantity={handleIncreaseQuantity}
           onDecreaseQuantity={handleDecreaseQuantity}
         />
       </div>

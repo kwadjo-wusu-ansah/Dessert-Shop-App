@@ -1,7 +1,6 @@
-import { Fragment, useMemo } from "react";
-import { resolveCartItemCount, resolveCartItems, resolveCartOrderTotal } from "../mappers";
+import { Fragment } from "react";
 import { getDessertCatalogItems } from "../data/dessertCatalog";
-import { useCart } from "../hooks";
+import { useCartCardData } from "../hooks";
 import { resolveCartHeading, resolveCurrencyValue } from "../utils";
 import carbonNeutralIcon from "../assets/images/icon-carbon-neutral.svg";
 import emptyCartIllustration from "../assets/images/illustration-empty-cart.svg";
@@ -109,13 +108,7 @@ function renderPopulatedState(
 
 // Renders the cart card with empty and populated states driven by global cart data.
 export function CartCard({ onConfirmOrder }: CartCardProps) {
-  const { cartEntries, removeItem } = useCart();
-  const items = useMemo(
-    () => resolveCartItems(dessertCatalogItems, cartEntries),
-    [cartEntries]
-  );
-  const itemCount = useMemo(() => resolveCartItemCount(items), [items]);
-  const orderTotal = useMemo(() => resolveCartOrderTotal(items), [items]);
+  const { items, itemCount, orderTotal, removeItem } = useCartCardData(dessertCatalogItems);
   const isEmpty = itemCount === 0;
 
   return (
