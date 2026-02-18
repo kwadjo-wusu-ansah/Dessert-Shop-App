@@ -114,6 +114,7 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 │   │   └── index.ts
 │   ├── state
 │   │   ├── cartState.ts
+│   │   ├── cartReducer.ts
 │   │   ├── index.ts
 │   │   ├── orderConfirmationState.ts
 │   │   └── regularButtonState.ts
@@ -156,6 +157,7 @@ Update this list whenever a concept is introduced to the project.
 - Responsive populated main-page composition using `DessertMenuCard` grid and `CartCard` populated/empty states
 - Main-page layout calibrated to Figma responsive nodes using a `1216px` content max width with `800px` product list and `384px` cart column structure
 - Global cart state model with `CartProvider` and `useCart` hook so catalog cards and cart panel stay synchronized without prop drilling
+- Reducer-driven cart actions in context (`ADD_ITEM`, `DECREASE_ITEM`, `REMOVE_ITEM`, `CLEAR_CART`) for centralized, predictable cart updates
 - Populated `CartCard` state with removable line items, dynamic quantity count, computed order total, and carbon-neutral info row
 - Populated responsive main-page parity for Figma nodes `10:334`, `36:313`, and `48:501`
 - Cart populated-state spacing parity with Figma `10:433` by rendering item rows and separators as flat siblings in the cart stack

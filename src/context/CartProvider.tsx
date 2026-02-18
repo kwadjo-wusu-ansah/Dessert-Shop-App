@@ -1,10 +1,7 @@
-import { useCallback, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useMemo, useReducer, type ReactNode } from "react";
 import {
-  resolveCartEntriesWithDecreasedItem,
-  resolveCartEntriesWithIncreasedItem,
-  resolveCartEntriesWithoutItem,
-  resolveInitialEmptyCartEntries,
-  type CartEntry,
+  resolveCartReducerState,
+  resolveInitialCartReducerState,
 } from "../state";
 import { CartContext, type CartContextValue } from "./CartContext";
 
@@ -14,32 +11,30 @@ interface CartProviderProps {
 
 // Provides globally shared cart entries and cart action handlers.
 export function CartProvider({ children }: CartProviderProps) {
-  const [cartEntries, setCartEntries] = useState<CartEntry[]>(resolveInitialEmptyCartEntries);
+  const [cartEntries, dispatchCartAction] = useReducer(
+    resolveCartReducerState,
+    undefined,
+    resolveInitialCartReducerState
+  );
 
-  // Adds a dessert and increases quantity when the dessert already exists.
+  // Dispatches an add action that increases the selected dessert quantity.
   const addItem = useCallback((itemName: string): void => {
-    setCartEntries((previousEntries) =>
-      resolveCartEntriesWithIncreasedItem(previousEntries, itemName)
-    );
+    dispatchCartAction({ type: "ADD_ITEM", itemName });
   }, []);
 
-  // Decreases a dessert quantity and removes it when quantity reaches zero.
+  // Dispatches a decrease action that reduces selected dessert quantity.
   const decreaseItem = useCallback((itemName: string): void => {
-    setCartEntries((previousEntries) =>
-      resolveCartEntriesWithDecreasedItem(previousEntries, itemName)
-    );
+    dispatchCartAction({ type: "DECREASE_ITEM", itemName });
   }, []);
 
-  // Removes a dessert line item from the cart entirely.
+  // Dispatches a remove action that deletes a cart line item.
   const removeItem = useCallback((itemName: string): void => {
-    setCartEntries((previousEntries) =>
-      resolveCartEntriesWithoutItem(previousEntries, itemName)
-    );
+    dispatchCartAction({ type: "REMOVE_ITEM", itemName });
   }, []);
 
-  // Clears every dessert from the cart.
+  // Dispatches a clear action that resets the entire cart.
   const clearCart = useCallback((): void => {
-    setCartEntries(resolveInitialEmptyCartEntries());
+    dispatchCartAction({ type: "CLEAR_CART" });
   }, []);
 
   const value = useMemo<CartContextValue>(
