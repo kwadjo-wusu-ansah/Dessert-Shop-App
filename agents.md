@@ -69,6 +69,7 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 ├── .gitignore
 ├── README.md
 ├── agents.md
+├── agents0.md
 ├── data.json
 ├── eslint.config.js
 ├── index.html
@@ -83,6 +84,10 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 │   │   ├── fonts
 │   │   ├── images
 │   │   └── react.svg
+│   ├── context
+│   │   ├── CartContext.tsx
+│   │   ├── CartProvider.tsx
+│   │   └── index.ts
 │   ├── components
 │   │   ├── CartCard.module.css
 │   │   ├── CartCard.tsx
@@ -98,6 +103,9 @@ The app allows users to add and remove desserts, dynamically updates totals, and
 │   ├── data
 │   │   └── dessertCatalog.ts
 │   ├── index.css
+│   ├── hooks
+│   │   ├── index.ts
+│   │   └── useCart.ts
 │   ├── main.tsx
 │   ├── mappers
 │   │   ├── buttonStyleMappers.ts
@@ -141,19 +149,20 @@ Update this list whenever a concept is introduced to the project.
 - Add-to-cart regular button with project cart icon and variation-specific fallback text
 - Active add-to-cart quantity control with interactive add/subtract icon buttons
 - Fixed-dimension add-to-cart states to keep default and active sizes consistent
-- Reusable `DessertMenuCard` with responsive image sources and parent-controlled cart actions
-- Reusable `CartCard` with parent-controlled `items`, remove-item callback, and optional confirm-order callback
+- Reusable `DessertMenuCard` with responsive image sources and context-driven cart actions
+- Reusable `CartCard` with context-driven cart data/removal and optional confirm-order callback
 - Reusable `ConfirmedOrderModal` with backdrop/Escape close interactions and dynamic confirmed-order item rendering
 - Static dessert catalog data provider via `getDessertCatalogItems`
 - Responsive populated main-page composition using `DessertMenuCard` grid and `CartCard` populated/empty states
 - Main-page layout calibrated to Figma responsive nodes using a `1216px` content max width with `800px` product list and `384px` cart column structure
-- Stateful cart-entry model in `App.tsx` with add/increase/decrease/remove flows that keep product cards and cart panel synchronized
+- Global cart state model with `CartProvider` and `useCart` hook so catalog cards and cart panel stay synchronized without prop drilling
 - Populated `CartCard` state with removable line items, dynamic quantity count, computed order total, and carbon-neutral info row
 - Populated responsive main-page parity for Figma nodes `10:334`, `36:313`, and `48:501`
 - Cart populated-state spacing parity with Figma `10:433` by rendering item rows and separators as flat siblings in the cart stack
 - App bootstraps with an empty cart state (no selected desserts, zero cart count) and transitions to populated state through interactions
 - Order confirmation modal flow with cart snapshot data, item thumbnails, responsive desktop/tablet/mobile modal layouts, and start-new-order cart reset behavior
 - Functional architecture split into `state`, `mappers`, and `utils` folders with barrel exports for shared logic reuse
+- Advanced phase requirements documented in `agents0.md` for context/reducer/side-effect/custom-hook migration planning
 
 ### Concepts to Learn Next
 - State architecture patterns for larger carts and catalogs

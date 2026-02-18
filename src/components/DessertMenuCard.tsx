@@ -1,3 +1,5 @@
+import { useCart } from "../hooks";
+import { resolveDessertQuantity } from "../state";
 import { resolveCurrencyValue, resolveImageClassName } from "../utils";
 import style from "./DessertMenuCard.module.css";
 import { RegularButton } from "./RegularButton";
@@ -13,25 +15,19 @@ interface DessertMenuCardProps {
   name: string;
   price: number;
   imageSources: DessertImageSources;
-  isInCart: boolean;
-  quantity: number;
-  onAddToCart: () => void;
-  onIncreaseQuantity: () => void;
-  onDecreaseQuantity: () => void;
 }
 
-// Renders a reusable dessert menu card with parent-controlled cart state.
+// Renders a reusable dessert menu card with globally shared cart state.
 export function DessertMenuCard({
   category,
   name,
   price,
   imageSources,
-  isInCart,
-  quantity,
-  onAddToCart,
-  onIncreaseQuantity,
-  onDecreaseQuantity,
 }: DessertMenuCardProps) {
+  const { cartEntries, addItem, decreaseItem } = useCart();
+  const quantity = resolveDessertQuantity(cartEntries, name);
+  const isInCart = quantity > 0;
+
   return (
     <article className={style.card}>
       <div className={style.mediaAndButton}>
@@ -49,9 +45,9 @@ export function DessertMenuCard({
           className={style.addToCartControl}
           isActive={isInCart}
           quantity={quantity}
-          onAddToCart={onAddToCart}
-          onIncreaseQuantity={onIncreaseQuantity}
-          onDecreaseQuantity={onDecreaseQuantity}
+          onAddToCart={() => addItem(name)}
+          onIncreaseQuantity={() => addItem(name)}
+          onDecreaseQuantity={() => decreaseItem(name)}
         />
       </div>
       <div className={style.info}>

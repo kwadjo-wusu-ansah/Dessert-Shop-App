@@ -1,5 +1,7 @@
 import { Fragment } from "react";
-import { resolveCartItemCount, resolveCartOrderTotal } from "../mappers";
+import { resolveCartItemCount, resolveCartItems, resolveCartOrderTotal } from "../mappers";
+import { getDessertCatalogItems } from "../data/dessertCatalog";
+import { useCart } from "../hooks";
 import { resolveCartHeading, resolveCurrencyValue } from "../utils";
 import carbonNeutralIcon from "../assets/images/icon-carbon-neutral.svg";
 import emptyCartIllustration from "../assets/images/illustration-empty-cart.svg";
@@ -8,8 +10,6 @@ import { Icon } from "./Icon";
 import { RegularButton } from "./RegularButton";
 
 interface CartCardProps {
-  items: CartCardItem[];
-  onRemoveItem: (itemName: string) => void;
   onConfirmOrder?: () => void;
 }
 
@@ -19,6 +19,8 @@ export interface CartCardItem {
   unitPrice: number;
   totalPrice: number;
 }
+
+const dessertCatalogItems = getDessertCatalogItems();
 
 // Renders the empty cart placeholder section.
 function renderEmptyState() {
@@ -106,15 +108,17 @@ function renderPopulatedState(
   );
 }
 
-// Renders the cart card with empty and populated states controlled by parent data.
-export function CartCard({ items, onRemoveItem, onConfirmOrder }: CartCardProps) {
+// Renders the cart card with empty and populated states driven by global cart data.
+export function CartCard({ onConfirmOrder }: CartCardProps) {
+  const { cartEntries, removeItem } = useCart();
+  const items = resolveCartItems(dessertCatalogItems, cartEntries);
   const itemCount = resolveCartItemCount(items);
   const isEmpty = itemCount === 0;
 
   return (
     <aside className={style.cartCard}>
       <h2 className={style.title}>{resolveCartHeading(itemCount)}</h2>
-      {isEmpty ? renderEmptyState() : renderPopulatedState(items, onRemoveItem, onConfirmOrder)}
+      {isEmpty ? renderEmptyState() : renderPopulatedState(items, removeItem, onConfirmOrder)}
     </aside>
   );
 }
