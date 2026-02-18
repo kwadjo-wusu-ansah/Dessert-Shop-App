@@ -4,6 +4,8 @@ export {
   resolveCartEntriesWithIncreasedItem,
   resolveCartEntriesWithoutItem,
   resolveDessertQuantity,
+  resolveIsCartEntries,
+  resolveIsCartEntry,
   resolveInitialEmptyCartEntries,
   type CartEntry,
 } from "./cartState";

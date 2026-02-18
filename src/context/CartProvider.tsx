@@ -1,21 +1,36 @@
-import { useCallback, useMemo, useReducer, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useReducer, type ReactNode } from "react";
 import {
   resolveCartReducerState,
+  resolveIsCartEntries,
   resolveInitialCartReducerState,
 } from "../state";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { CartContext, type CartContextValue } from "./CartContext";
 
 interface CartProviderProps {
   children: ReactNode;
 }
 
+const cartStorageKey = "dessert-shop-cart";
+const fallbackCartEntries = resolveInitialCartReducerState();
+
 // Provides globally shared cart entries and cart action handlers.
 export function CartProvider({ children }: CartProviderProps) {
+  const { resolveStoredValue, setStoredValue } = useLocalStorage({
+    key: cartStorageKey,
+    fallbackValue: fallbackCartEntries,
+    validate: resolveIsCartEntries,
+  });
   const [cartEntries, dispatchCartAction] = useReducer(
     resolveCartReducerState,
     undefined,
-    resolveInitialCartReducerState
+    () => resolveStoredValue()
   );
+
+  // Persists cart entries whenever reducer state changes.
+  useEffect(() => {
+    setStoredValue(cartEntries);
+  }, [cartEntries, setStoredValue]);
 
   // Dispatches an add action that increases the selected dessert quantity.
   const addItem = useCallback((itemName: string): void => {

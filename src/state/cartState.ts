@@ -3,6 +3,41 @@ export interface CartEntry {
   quantity: number;
 }
 
+// Returns true when an unknown value is a plain object record.
+function resolveIsRecordValue(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+// Returns true when an unknown value matches the cart entry shape.
+export function resolveIsCartEntry(value: unknown): value is CartEntry {
+  if (!resolveIsRecordValue(value)) {
+    return false;
+  }
+
+  if (typeof value.itemName !== "string") {
+    return false;
+  }
+
+  if (typeof value.quantity !== "number") {
+    return false;
+  }
+
+  if (!Number.isInteger(value.quantity)) {
+    return false;
+  }
+
+  return value.quantity > 0;
+}
+
+// Returns true when an unknown value is a list of valid cart entries.
+export function resolveIsCartEntries(value: unknown): value is CartEntry[] {
+  if (!Array.isArray(value)) {
+    return false;
+  }
+
+  return value.every((cartEntry) => resolveIsCartEntry(cartEntry));
+}
+
 // Returns the cart entry that matches a dessert name.
 function resolveMatchingCartEntry(
   cartEntries: CartEntry[],
