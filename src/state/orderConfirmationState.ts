@@ -4,6 +4,6 @@ export function resolveInitialOrderConfirmationOpenState(): boolean {
 }
 
 // Returns an empty typed collection for initial order-related lists.
-export function resolveInitialOrderCollection<TItem>(): TItem[] {
+export function resolveInitialOrderCollection<T>(): T[] {
   return [];
 }
