@@ -38,9 +38,11 @@ function useEscapeClose(isOpen: boolean, onClose: () => void): void {
     };
 
     window.addEventListener("keydown", handleKeyDown);
+
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
+    
   }, [isOpen, onClose]);
 }
 

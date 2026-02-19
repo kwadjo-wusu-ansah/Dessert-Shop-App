@@ -37,6 +37,13 @@ export function RegularButton({
   disabled,
   ...rest
 }: RegularButtonProps) {
+
+  const [isAddToCartActive, setIsAddToCartActive] = useState(
+    resolveInitialAddToCartActiveState(variation, isActive)
+  );
+  const [internalQuantity, setInternalQuantity] = useState(1);
+
+
   const isControlledAddToCart = resolveIsControlledAddToCart(
     variation,
     onAddToCart,
@@ -44,10 +51,7 @@ export function RegularButton({
     onDecreaseQuantity,
     quantity
   );
-  const [isAddToCartActive, setIsAddToCartActive] = useState(
-    resolveInitialAddToCartActiveState(variation, isActive)
-  );
-  const [internalQuantity, setInternalQuantity] = useState(1);
+  
   const isAddToCartControlActive = isControlledAddToCart ? isActive : isAddToCartActive;
   const displayQuantity = isControlledAddToCart
     ? resolveDisplayQuantity(quantity)
