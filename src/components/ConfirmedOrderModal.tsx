@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import type { MouseEvent } from "react";
+import { useEscapeClose } from "../hooks";
 import {
   resolveConfirmedOrderTotal,
   resolveVisibleConfirmedOrderItems,
@@ -22,28 +23,6 @@ export interface ConfirmedOrderModalItem {
   unitPrice: number;
   totalPrice: number;
   thumbnail: string;
-}
-
-// Closes the modal when Escape is pressed while it is open.
-function useEscapeClose(isOpen: boolean, onClose: () => void): void {
-  useEffect(() => {
-    if (!isOpen) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-    
-  }, [isOpen, onClose]);
 }
 
 // Closes the modal when the overlay itself is clicked.
